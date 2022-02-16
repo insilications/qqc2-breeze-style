@@ -11,6 +11,7 @@ Source0  : https://download.kde.org/stable/plasma/5.24.0/qqc2-breeze-style-5.24.
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: qqc2-breeze-style-lib = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules-data
@@ -24,7 +25,6 @@ BuildRequires : kwidgetsaddons-dev
 BuildRequires : libICE-dev
 BuildRequires : libSM-dev
 BuildRequires : libX11-dev
-BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86vm-dev
 BuildRequires : libXScrnSaver-dev
 BuildRequires : libXau-dev
 BuildRequires : libXcomposite-dev
@@ -48,7 +48,6 @@ BuildRequires : libXxf86vm-dev
 BuildRequires : mesa-dev
 BuildRequires : pkg-config
 BuildRequires : qtbase-dev
-BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qtx11extras-dev
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -57,6 +56,25 @@ BuildRequires : qtx11extras-dev
 %description
 # QQC2 Breeze Style
 This is a pure Qt Quick/Kirigami Qt Quick Controls style. Unlike QQC2-Desktop-Style, it does not depend on Qt Widgets and the system QStyle. It looks like the KDE Visual Design Group's vision for Breeze.
+
+%package dev
+Summary: dev components for the qqc2-breeze-style package.
+Group: Development
+Requires: qqc2-breeze-style-lib = %{version}-%{release}
+Provides: qqc2-breeze-style-devel = %{version}-%{release}
+Requires: qqc2-breeze-style = %{version}-%{release}
+
+%description dev
+dev components for the qqc2-breeze-style package.
+
+
+%package lib
+Summary: lib components for the qqc2-breeze-style package.
+Group: Libraries
+
+%description lib
+lib components for the qqc2-breeze-style package.
+
 
 %prep
 %setup -q -n qqc2-breeze-style-5.24.0
@@ -68,7 +86,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1645005991
+export SOURCE_DATE_EPOCH=1645006055
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -78,12 +96,12 @@ export NM=gcc-nm
 ## altflags1 content
 ## altflags1
 unset ASFLAGS
-export CFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export ASMFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export CXXFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export FCFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export FFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export LDFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export CFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export ASMFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export CXXFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export FCFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export FFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export LDFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
 export AR=/usr/bin/gcc-ar
 export RANLIB=/usr/bin/gcc-ranlib
 export NM=/usr/bin/gcc-nm
@@ -142,7 +160,7 @@ make  %{?_smp_mflags}    V=1 VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1645005991
+export SOURCE_DATE_EPOCH=1645006055
 rm -rf %{buildroot}
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -151,12 +169,12 @@ export NM=gcc-nm
 ## altflags1 content
 ## altflags1
 unset ASFLAGS
-export CFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export ASMFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export CXXFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export FCFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export FFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
-export LDFLAGS="-DNDEBUG -ggdb3 -ggnu-pubnames -O3 -mvzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export CFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export ASMFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export CXXFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export FCFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export FFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
+export LDFLAGS="-DNDEBUG -Ofast -mno-vzeroupper --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flive-range-shrinkage -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -static-libstdc++ -static-libgcc -Wl,--build-id=sha1 -Wno-inline"
 export AR=/usr/bin/gcc-ar
 export RANLIB=/usr/bin/gcc-ranlib
 export NM=/usr/bin/gcc-nm
@@ -215,3 +233,156 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files dev
+%defattr(-,root,root,-)
+/usr/lib64/cmake/KF5QQC2BreezeStyle/KF5QQC2BreezeStyleConfig.cmake
+/usr/lib64/cmake/KF5QQC2BreezeStyle/KF5QQC2BreezeStyleConfigVersion.cmake
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/qt5/plugins/kf5/kirigami/org.kde.breeze.so
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/AbstractButton.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ApplicationWindow.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/BusyIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Button.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ButtonGroup.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/CheckBox.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/CheckDelegate.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ComboBox.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Container.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Control.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/DelayButton.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Dial.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Dialog.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/DialogButtonBox.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Drawer.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Frame.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/GroupBox.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/HorizontalHeaderView.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ItemDelegate.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Label.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Menu.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/MenuBar.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/MenuBarItem.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/MenuItem.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/MenuSeparator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/MobileTextActionsToolBar.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Page.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/PageIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Pane.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Popup.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ProgressBar.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/RadioButton.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/RadioDelegate.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/RangeSlider.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/RoundButton.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ScrollBar.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ScrollIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ScrollView.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Slider.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/SpinBox.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/SplitView.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/StackView.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/SwipeDelegate.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/SwipeView.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Switch.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/SwitchDelegate.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/TabBar.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/TabButton.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/TextArea.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/TextField.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ToolBar.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ToolButton.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ToolSeparator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/ToolTip.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/Tumbler.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/VerticalHeaderView.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/BackgroundGradient.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/ButtonBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/CheckIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/ComboBoxBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/CursorDelegate.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/CursorHandle.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/DelegateBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/FocusRect.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/IconLabelContent.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/IconLabelShortcutContent.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/InlineIconLabelContent.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/LargeShadow.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/ListViewHighlight.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/MediumShadow.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/MenuItemBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/OverlayDimBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/OverlayModalBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/RadioIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/ScrollHandle.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/SliderGroove.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/SliderHandle.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/SmallShadow.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/SpinBoxIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/SwitchIndicator.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/TextEditBackground.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/Units.qml
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/impl/qmldir
+/usr/lib64/qt5/qml/QtQuick/Controls.2/org.kde.breeze/qmldir
+/usr/lib64/qt5/qml/org/kde/breeze/impl/BackgroundGradient.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/ButtonBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/CheckIndicator.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/ComboBoxBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/CursorDelegate.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/CursorHandle.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/DelegateBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/FocusRect.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/IconLabelContent.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/IconLabelShortcutContent.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/InlineIconLabelContent.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/LargeShadow.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/ListViewHighlight.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/MediumShadow.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/MenuItemBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/OverlayDimBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/OverlayModalBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/RadioIndicator.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/ScrollHandle.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/SliderGroove.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/SliderHandle.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/SmallShadow.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/SpinBoxIndicator.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/SwitchIndicator.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/TextEditBackground.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/Units.qml
+/usr/lib64/qt5/qml/org/kde/breeze/impl/qmldir
+/usr/lib64/qt5/qml/org/kde/breeze/libqqc2breezestyleplugin.so
+/usr/lib64/qt5/qml/org/kde/breeze/qmldir
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/AbstractApplicationHeader.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/AbstractListItem.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/Separator.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/SwipeListItem.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/BackgroundGradient.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/ButtonBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/CheckIndicator.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/ComboBoxBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/CursorDelegate.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/CursorHandle.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/DelegateBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/FocusRect.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/IconLabelContent.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/IconLabelShortcutContent.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/InlineIconLabelContent.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/LargeShadow.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/ListViewHighlight.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/MediumShadow.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/MenuItemBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/OverlayDimBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/OverlayModalBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/RadioIndicator.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/ScrollHandle.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/SliderGroove.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/SliderHandle.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/SmallShadow.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/SpinBoxIndicator.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/SwitchIndicator.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/TextEditBackground.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/Units.qml
+/usr/lib64/qt5/qml/org/kde/kirigami.2/styles/org.kde.breeze/impl/qmldir
